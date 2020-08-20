@@ -204,15 +204,29 @@ textovePole.innerHTML = vysledek;
 
 
 // obarvení slabik
-let casovac = setInterval(obarvujSlabiky, 1000);
+let casovac = setInterval(obarvujSlabiky, 500);
 let poradi = 1;
 
 function obarvujSlabiky() {
     
     const obarvenaSlabika = document.querySelector(`span:nth-child(${poradi})`);
-    obarvenaSlabika.style.backgroundColor = "red";
+
+    if (poradi > poleSlabik.length) {
+        clearInterval(casovac);
+        return;
+    }    
+
+    if (!interpunkce.includes(obarvenaSlabika.innerHTML)) {
+        obarvenaSlabika.style.backgroundColor = "pink";
+        }
+    if (poradi > 1) {
+        const predchoziSlabika = document.querySelector(`span:nth-child(${poradi-1})`);
+        predchoziSlabika.style.backgroundColor = "white";
+        }
     poradi++;
     }
+
+
 
 // console.log(obarvenaSlabika);
 
