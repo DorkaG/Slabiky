@@ -2,12 +2,16 @@
 
 let samohlasky = ["a", "á", "e", "é", "i", "í", "o", "ó", "u", "ú", "ů", "y", "ý", "ě", "ou", "au", "A", "Á", "E", "É", "I", "Í", "O", "Ó", "U", "Ú", "Ů", "Y", "Ý", "Ě", "OU", "AU"];
 let souhlasky = ["b", "B", "c", "C", "č", "č", "d", "D", "ď", "Ď", "f", "F", "g", "G", "h", "H", "ch", "Ch", "j", "J", "k", "K", "m", "M", "n", "N", "p", "P", "q", "Q", "ř", "Ř", "s", "S", "š", "Š", "t", "T", "ť", "Ť", "v", "V", "w", "W", "x", "X", "z", "Z", "ž", "Ž"];
-let interpunkce = [" ", ",", ".", "?", "!", "...", ";", "-", "'"];
+let interpunkce = [" ", ",", ".", "?", "!", "...", ";", "-", "'", "(", ")"];
 
-//let text = "máma ouha chrní";
-// let text = "Vlku nevrkej ráno";
-// let text = "Láska zrada eroze prst";
-let text = "mamlase";
+// let text = "máma ouha chrní.";
+// let text = "Vlku nevrkej ráno.";
+// let text = "K tobě láska zrada eroze prst a velký třesk?";
+// let text = "Máma má mamlase.";
+// let text = "Rozdělil ses?";
+let text = "Stockholmské metro je známé pro jeho výzdobu stanic; je nazýváno nejdelší uměleckou galerií na světě. Několik stanic (obzvláště na modré lince) je zdobeno surovým a nedokončeným podložím. Ve stanici Rissne je po obou stranách vestibulu informativní nástěnná freska o historii civilizací Země.";
+
+
 
 
 let znaky = text.split("");                          //text se rozdeli na znaky
@@ -62,7 +66,7 @@ for (let i = 0; i < znaky.length; i++) {
     else if (znaky[i] === "R") {
         if (samohlasky.includes(znaky[i-1]) || samohlasky.includes(znaky[i+1])) {
             znakyJakoObjekty.push({znak: "R", typ: "souhlaska"});
-            }      
+            }
         else {
             znakyJakoObjekty.push({znak: "R", typ: "samohlaska"});
                 }
@@ -70,7 +74,7 @@ for (let i = 0; i < znaky.length; i++) {
     else if (znaky[i] === "l") {
         if (samohlasky.includes(znaky[i-1]) || samohlasky.includes(znaky[i+1])) {
             znakyJakoObjekty.push({znak: "l", typ: "souhlaska"});
-                }      
+                }
         else {
            znakyJakoObjekty.push({znak: "l", typ: "samohlaska"});
                 }
@@ -78,23 +82,29 @@ for (let i = 0; i < znaky.length; i++) {
     else if (znaky[i] === "L") {
         if (samohlasky.includes(znaky[i-1]) || samohlasky.includes(znaky[i+1])) {
             znakyJakoObjekty.push({znak: "L", typ: "souhlaska"});
-                    }      
+                    }
         else {
             znakyJakoObjekty.push({znak: "L", typ: "samohlaska"});
                     }
         }
-    
+
 }
 
 console.log(znakyJakoObjekty);
 
 let slabika = [];
 let poleSlabik = [];
+let dalsiSlabika = false;
 
 // let opakuj = 0;
 // while (opakuj < znakyJakoObjekty.length) {
 
     for (let i = 0; i < znakyJakoObjekty.length; i++) {
+        if (dalsiSlabika === true) {
+            dalsiSlabika = false;
+            i = -1; continue;
+        }
+
         if (znakyJakoObjekty[i].typ === "souhlaska") {
             slabika.push(znakyJakoObjekty[i].znak);
         }
@@ -102,27 +112,34 @@ let poleSlabik = [];
             slabika.push(znakyJakoObjekty[i].znak);
                 if (znakyJakoObjekty[0].typ !== "souhlaska") {
                     hotovaSlabika(i);
-                    break;
                 }
         }
         else if (znakyJakoObjekty[i].typ === "samohlaska") {                //ma
             slabika.push(znakyJakoObjekty[i].znak);
                 if (znakyJakoObjekty[i+1].typ === "interpunkce" || znakyJakoObjekty[i+1].typ === "samohlaska") {        //ma.
                     hotovaSlabika(i);
-                    break;
                 }
                 else if (znakyJakoObjekty[i+1].typ === "souhlaska") {       //mam
                     for (let a = i + 2; a < znakyJakoObjekty.length; a++) {
+                        if (dalsiSlabika === true) {
+                            break;
+                        }
+
                         if (znakyJakoObjekty[a].typ === "samohlaska"){  //mama
                             hotovaSlabika(i);
-                            break; 
+                            break;
+                        }
+                        else if (znakyJakoObjekty[a].typ === "interpunkce") {       //mám.
+                            slabika.push(znakyJakoObjekty[i+1].znak);
+                            hotovaSlabika(i+1);
+                            break;
                         }
                         else if (znakyJakoObjekty[a].typ === "souhlaska") {          //mamlas. třesk
                             for (let b = i + 3; b < znakyJakoObjekty.length; b++) {
                                 if (znakyJakoObjekty[b].typ === "samohlaska") {         //mamlas
-                                    slabika.push(znakyJakoObjekty[i+1].znak); 
+                                    slabika.push(znakyJakoObjekty[i+1].znak);
                                     hotovaSlabika(i+1);
-                                    break;  
+                                    break;
                                 }
                                 else if (znakyJakoObjekty[b].typ === "interpunkce") {   // třesk.
                                     for (let x = i+1; x < b; x++) {
@@ -131,8 +148,8 @@ let poleSlabik = [];
                                     hotovaSlabika(b-1);
                                     break;
                                 }
-                            }    
-                        }       
+                            }
+                        }
 
 
                     }
@@ -155,6 +172,8 @@ function hotovaSlabika(index) {
     }
 
     slabika = [];
+
+    dalsiSlabika = true;
 
 }
 console.log("Pole znaků, resp. to, co z něj zbylo:")
