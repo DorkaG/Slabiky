@@ -1,5 +1,7 @@
 "use strict";
 
+//definice souhlásek, samohlásek a interpunkce. Do interpunkce je zahrnuta i mezera
+
 let samohlasky = ["a", "á", "e", "é", "i", "í", "o", "ó", "u", "ú", "ů", "y", "ý", "ě", "ou", "au", "A", "Á", "E", "É", "I", "Í", "O", "Ó", "U", "Ú", "Ů", "Y", "Ý", "Ě", "OU", "AU"];
 let souhlasky = ["b", "B", "c", "C", "č", "č", "d", "D", "ď", "Ď", "f", "F", "g", "G", "h", "H", "ch", "Ch", "j", "J", "k", "K", "m", "M", "n", "N", "p", "P", "q", "Q", "ř", "Ř", "s", "S", "š", "Š", "t", "T", "ť", "Ť", "v", "V", "w", "W", "x", "X", "z", "Z", "ž", "Ž"];
 let interpunkce = [" ", ",", ".", "?", "!", "...", ";", "-", "'", "(", ")"];
@@ -12,7 +14,7 @@ let interpunkce = [" ", ",", ".", "?", "!", "...", ";", "-", "'", "(", ")"];
 let text = "Stockholmské metro je známé pro jeho výzdobu stanic; je nazýváno nejdelší uměleckou galerií na světě. Několik stanic (obzvláště na modré lince) je zdobeno surovým a nedokončeným podložím. Ve stanici Rissne je po obou stranách vestibulu informativní nástěnná freska o historii civilizací Země.";
 
 
-
+// rozdělení textu na slabiky
 
 let znaky = text.split("");                          //text se rozdeli na znaky
 
@@ -100,9 +102,9 @@ let dalsiSlabika = false;
 // while (opakuj < znakyJakoObjekty.length) {
 
     for (let i = 0; i < znakyJakoObjekty.length; i++) {
-        if (dalsiSlabika === true) {
+        if (dalsiSlabika === true) {                // pokud začínáme hledat další slabiku, musí se i vynulovat a hledat se zase od začátku
             dalsiSlabika = false;
-            i = -1; continue;
+            i = -1; continue;               
         }
 
         if (znakyJakoObjekty[i].typ === "souhlaska") {
@@ -182,6 +184,35 @@ console.log(znakyJakoObjekty);
 console.log("Pole slabika by mělo být prázdné:")
 console.log(slabika);
 
-console.log("Pole slabik by mělo obsahovat aktuální slabiku:")
+console.log("Pole slabik by mělo obsahovat aktuální slabiku/y:")
 console.log(poleSlabik);
+
+
+
+
+//vypsání slabik do html textového pole
+const textovePole = document.querySelector("#text");
+
+let vysledek = "";
+
+for (let slabika of poleSlabik) {
+    vysledek = vysledek + `<span>${slabika}</span>`
+}
+
+textovePole.innerHTML = vysledek;
+
+
+
+// obarvení slabik
+let casovac = setInterval(obarvujSlabiky, 1000);
+let poradi = 1;
+
+function obarvujSlabiky() {
+    
+    const obarvenaSlabika = document.querySelector(`span:nth-child(${poradi})`);
+    obarvenaSlabika.style.backgroundColor = "red";
+    poradi++;
+    }
+
+// console.log(obarvenaSlabika);
 
