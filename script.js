@@ -204,27 +204,46 @@ textovePole.innerHTML = vysledek;
 
 
 // obarvení slabik
-let casovac = setInterval(obarvujSlabiky, 500);
-let poradi = 1;
+
+
+
+let indexySlabikObarvit = [];           //pole, do kter0ho si ulozim indexz tech slabik, ktere sa maji obarvit (tj. nikoli interpunkce)
+for (let i = 0; i < poleSlabik.length; i++) {
+    if (!interpunkce.includes(poleSlabik[i])) {
+        indexySlabikObarvit.push(i);
+    }
+}
+
+console.log(indexySlabikObarvit);
+
+
+
+let casovac = setInterval(obarvujSlabiky, 600);
+
+let x = 0;
 
 function obarvujSlabiky() {
     
-    const obarvenaSlabika = document.querySelector(`span:nth-child(${poradi})`);
+    let poradiObravit = indexySlabikObarvit[x];    //tady vemu prvni index z pole indexu tech slabik, ktere se maji obarvit; pak vemu druhy, treti atd.
 
-    if (poradi > poleSlabik.length) {
+    if (x === indexySlabikObarvit.length) {         //yastavit casovac, kdyz jsme na konci textu
         clearInterval(casovac);
         return;
     }    
 
-    if (!interpunkce.includes(obarvenaSlabika.innerHTML)) {
-        obarvenaSlabika.style.backgroundColor = "pink";
-        }
-    if (poradi > 1) {
-        const predchoziSlabika = document.querySelector(`span:nth-child(${poradi-1})`);
-        predchoziSlabika.style.backgroundColor = "white";
-        }
-    poradi++;
+    const obarvenaSlabika = document.querySelector(`span:nth-child(${poradiObravit+1})`);
+    obarvenaSlabika.style.backgroundColor = "pink";
+        
+    if (x > 0) {                            //odbarvovat predchozi zabarvenou slabiku
+        let poradiOdbarvit = indexySlabikObarvit[x-1];
+        const predchoziSlabika = document.querySelector(`span:nth-child(${poradiOdbarvit+1})`);
+         predchoziSlabika.style.backgroundColor = "white";
+         }
+
+    x++;            //zvetsim x, aby se mohl vzit dalsi index z pole obarvovatelnych slabik
     }
+
+ 
 
 
 
