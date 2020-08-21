@@ -3,15 +3,41 @@
 //definice souhlásek, samohlásek a interpunkce. Do interpunkce je zahrnuta i mezera
 
 let samohlasky = ["a", "á", "e", "é", "i", "í", "o", "ó", "u", "ú", "ů", "y", "ý", "ě", "ou", "au", "A", "Á", "E", "É", "I", "Í", "O", "Ó", "U", "Ú", "Ů", "Y", "Ý", "Ě", "OU", "AU"];
-let souhlasky = ["b", "B", "c", "C", "č", "č", "d", "D", "ď", "Ď", "f", "F", "g", "G", "h", "H", "ch", "Ch", "j", "J", "k", "K", "m", "M", "n", "N", "p", "P", "q", "Q", "ř", "Ř", "s", "S", "š", "Š", "t", "T", "ť", "Ť", "v", "V", "w", "W", "x", "X", "z", "Z", "ž", "Ž"];
+let souhlasky = ["b", "B", "c", "C", "č", "Č", "d", "D", "ď", "Ď", "f", "F", "g", "G", "h", "H", "ch", "Ch", "j", "J", "k", "K", "m", "M", "n", "N", "ň", "Ň", "p", "P", "q", "Q", "ř", "Ř", "s", "S", "š", "Š", "t", "T", "ť", "Ť", "v", "V", "w", "W", "x", "X", "z", "Z", "ž", "Ž"];
 let interpunkce = [" ", ",", ".", "?", "!", "...", ";", "-", "'", "(", ")"];
+
+//vybrání formuláře a událost submit
+
+const velkaPismena = document.querySelector("#velkaPismena");
+
+const pomalu = document.querySelector("#pomalu");
+
+const rychle = document.querySelector("#rychle");
+
+
+
+
+const odeslat = document.querySelector("#odeslat");
+odeslat.addEventListener("click", slabikuj);
+
+
+function slabikuj(event) {
+    event.preventDefault();
+    const zadanyText = document.querySelector("#zadanyText");   //ziskani textu z formularoveho pole
+    let text = zadanyText.value;
+
+    if (velkaPismena.checked) {
+        text = text.toUpperCase();
+    }
+
+
 
 // let text = "máma ouha chrní.";
 // let text = "Vlku nevrkej ráno.";
 // let text = "K tobě láska zrada eroze prst a velký třesk?";
 // let text = "Máma má mamlase.";
 // let text = "Rozdělil ses?";
-let text = "Stockholmské metro je známé pro jeho výzdobu stanic; je nazýváno nejdelší uměleckou galerií na světě. Několik stanic (obzvláště na modré lince) je zdobeno surovým a nedokončeným podložím. Ve stanici Rissne je po obou stranách vestibulu informativní nástěnná freska o historii civilizací Země.";
+// let text = "Stockholmské metro je známé pro jeho výzdobu stanic; je nazýváno nejdelší uměleckou galerií na světě. Několik stanic (obzvláště na modré lince) je zdobeno surovým a nedokončeným podložím. Ve stanici Rissne je po obou stranách vestibulu informativní nástěnná freska o historii civilizací Země.";
 
 
 // rozdělení textu na slabiky
@@ -216,9 +242,16 @@ for (let i = 0; i < poleSlabik.length; i++) {
 
 console.log(indexySlabikObarvit);
 
+let casovyInterval = 0;
+if (pomalu.checked) {
+    casovyInterval = 1000;
+}
 
+if (rychle.checked) {
+    casovyInterval = 600;
+}
 
-let casovac = setInterval(obarvujSlabiky, 600);
+let casovac = setInterval(obarvujSlabiky, casovyInterval);
 
 let x = 0;
 
@@ -248,4 +281,4 @@ function obarvujSlabiky() {
 
 
 // console.log(obarvenaSlabika);
-
+}

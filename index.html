@@ -4,10 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+    
+    <form id="formular" method="get">
+        <label for="zadanyText">Zadejte libovolný text</label>
+        <textarea name="zadanyText" id="zadanyText" placeholder="Váš text" required rows="10" cols="70"> </textarea>
+        <button name="odeslat" id="odeslat">Slabikuj!</button>
+        <input type="reset" name="vymazat" id="vymazat" value="Vymazat">
+    </form>
 
-    <div id="text"></div>
+    <div class="slabikovani">
+        <form id="volby" method="get">
+            <label for="velkaPismena" class="volba" >Velkými písmeny</label>
+            <input type="checkbox" name="velkaPismena" id="velkaPismena">
+
+            <label for="pomalu" class="volba" >Pomalu</label>
+            <input type="radio" name="rychlost" id="pomalu" checked> 
+            <label for="rychle" class="volba" >Rychle</label>
+            <input type="radio" name="rychlost" id="rychle"> 
+        </form>
+
+
+        <div id="text"></div>
+    </div>    
     
     <script src="script.js"></script>
 </body>

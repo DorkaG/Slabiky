@@ -1,0 +1,33 @@
+html { box-sizing: border-box; }
+*, ::after, ::before { box-sizing: inherit; }
+
+#text {
+    border: 2px solid orange;
+    border-radius: 5px;
+    margin: 20px 50px;
+    padding: 50px;
+    font-size: 50px;
+}
+
+#odeslat,
+#vymazat {
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+#odeslat {
+    background-color: palegreen;
+}
+
+.slabikovani {
+    margin-top: 50px;
+}
+
+#volby {
+    margin: 0 50px;
+}
+
+.volba {
+    margin-left: 20px;
+} 
