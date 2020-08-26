@@ -11,20 +11,31 @@
     <form id="formular" method="get">
         <label for="zadanyText">Zadejte libovolný text</label>
         <textarea name="zadanyText" id="zadanyText" placeholder="Váš text" required rows="10" cols="70"> </textarea>
-        <button name="odeslat" id="odeslat">Slabikuj!</button>
-        <input type="reset" name="vymazat" id="vymazat" value="Vymazat">
+        <button name="odeslat" id="odeslat" class="tlacitko">Slabikuj!</button>
+        <input type="reset" name="vymazat" id="vymazat" class="tlacitko" value="Vymazat">
     </form>
 
     <div class="slabikovani">
-        <form id="volby" method="get">
-            <label for="velkaPismena" class="volba" >Velkými písmeny</label>
-            <input type="checkbox" name="velkaPismena" id="velkaPismena">
+        <div class="container">
+            <form id="volby" method="get">
+                <label for="velkaPismena" class="volba" >Velkými písmeny</label>
+                <input type="checkbox" name="velkaPismena" id="velkaPismena">
 
-            <label for="pomalu" class="volba" >Pomalu</label>
-            <input type="radio" name="rychlost" id="pomalu" checked> 
-            <label for="rychle" class="volba" >Rychle</label>
-            <input type="radio" name="rychlost" id="rychle"> 
-        </form>
+                <label for="pomalu" class="volba" >Pomalu</label>
+                <input type="radio" name="rychlost" id="pomalu" checked> 
+                <label for="rychle" class="volba" >Rychle</label>
+                <input type="radio" name="rychlost" id="rychle"> 
+            
+            </form>
+
+            <div class="tlacitka">
+                <button name="pozastavit" class="volba tlacitko" id="pozastavit">Pozastavit</button>
+                <button name="pokracovat" class="volba tlacitko" id="pokracovat">Pokračovat</button>
+                <button name="zrusit" class="volba tlacitko" id="zrusit">Zrušit</button> 
+
+            </div>
+
+        </div>
 
 
         <div id="text"></div>

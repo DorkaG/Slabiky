@@ -21,8 +21,23 @@ const odeslat = document.querySelector("#odeslat");
 odeslat.addEventListener("click", slabikuj);
 
 
+const zrusit = document.querySelector("#zrusit");
+zrusit.addEventListener("click", zrus);
+
+const textovePole = document.querySelector("#text");
+
+let zruseni = false;
+function zrus() {
+    textovePole.innerHTML = "";
+    zruseni = true;
+}
+
+
+
 function slabikuj(event) {
     event.preventDefault();
+
+   
     const zadanyText = document.querySelector("#zadanyText");   //ziskani textu z formularoveho pole
     let text = zadanyText.value;
 
@@ -217,7 +232,7 @@ console.log(poleSlabik);
 
 
 //vypsání slabik do html textového pole
-const textovePole = document.querySelector("#text");
+// const textovePole = document.querySelector("#text");
 
 let vysledek = "";
 
@@ -251,13 +266,46 @@ if (rychle.checked) {
     casovyInterval = 600;
 }
 
-let casovac = setInterval(obarvujSlabiky, casovyInterval);
 
+const pozastavit = document.querySelector("#pozastavit");
+pozastavit.addEventListener("click", pozastav);
+
+const pokracovat = document.querySelector("#pokracovat");
+pokracovat.addEventListener("click", pokracuj);
+
+
+let casovac = "";
+let pozastaveni = false; 
 let x = 0;
+
+function pozastav() {
+    pozastaveni = true;
+}
+ 
+function pokracuj() {
+    pozastaveni = false;
+    casovac = setInterval(obarvujSlabiky, casovyInterval);
+}
+
+
+
+// if (pozastaveni === false) {
+    casovac = setInterval(obarvujSlabiky, casovyInterval);
+        // }
 
 function obarvujSlabiky() {
     
     let poradiObravit = indexySlabikObarvit[x];    //tady vemu prvni index z pole indexu tech slabik, ktere se maji obarvit; pak vemu druhy, treti atd.
+
+    if (pozastaveni === true) {
+        clearInterval(casovac);
+    }
+
+    if (zruseni === true) {
+        zruseni = false; 
+        clearInterval(casovac);
+        return;
+    }
 
     if (x === indexySlabikObarvit.length) {         //yastavit casovac, kdyz jsme na konci textu
         clearInterval(casovac);

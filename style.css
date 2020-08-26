@@ -9,8 +9,7 @@ html { box-sizing: border-box; }
     font-size: 50px;
 }
 
-#odeslat,
-#vymazat {
+.tlacitko {
     margin: 5px;
     padding: 5px 10px;
     border-radius: 5px;
@@ -31,3 +30,22 @@ html { box-sizing: border-box; }
 .volba {
     margin-left: 20px;
 } 
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 50px;
+}
+
+#pozastavit {
+    background-color: orange;
+}
+
+#pokracovat {
+    background-color: palegreen
+}
+
+#zrusit {
+    background-color: red
+}
+
