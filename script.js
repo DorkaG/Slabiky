@@ -9,17 +9,12 @@ let interpunkce = [" ", ",", ".", "?", "!", "...", ";", "-", "'", "(", ")"];
 //vybrání formuláře a událost submit
 
 const velkaPismena = document.querySelector("#velkaPismena");
-
 const pomalu = document.querySelector("#pomalu");
-
 const rychle = document.querySelector("#rychle");
-
-
 
 
 const odeslat = document.querySelector("#odeslat");
 odeslat.addEventListener("click", slabikuj);
-
 
 const zrusit = document.querySelector("#zrusit");
 zrusit.addEventListener("click", zrus);
@@ -33,13 +28,11 @@ function zrus() {
 }
 
 
-
 function slabikuj(event) {
     event.preventDefault();
-
    
     const zadanyText = document.querySelector("#zadanyText");   //ziskani textu z formularoveho pole
-    let text = zadanyText.value;
+    let text = zadanyText.value + " ";      //mezery přidány proto, aby se nakonec obarvovala i poslední slabika
 
     if (velkaPismena.checked) {
         text = text.toUpperCase();
@@ -58,8 +51,6 @@ function slabikuj(event) {
 // rozdělení textu na slabiky
 
 let znaky = text.split("");                          //text se rozdeli na znaky
-
-
 
 for (let i = 0; i < znaky.length; i++) {
     if (znaky[i] === "o") {                          //osetreni dvouhlasky ou
